@@ -1,8 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-A minimal Express API (starter project for a Claude Code course) with an in-memory data store, one route file per resource, and a sample test suite.
+A minimal Express API with an in-memory data store, one route file per resource, and a sample test suite.
 
 ## Commands
 
