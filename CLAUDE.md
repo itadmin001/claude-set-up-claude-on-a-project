@@ -15,10 +15,10 @@ Server port is configurable via the `PORT` env var (defaults to 3000); copy `.en
 
 ## Conventions
 
-- Routes are defined with `express.Router()`, one file per resource in `routes/`, mounted in `server.js` (e.g. `app.use("/users", usersRoutes)`). Add a new resource by creating `routes/<resource>.js` and mounting it there.
-- All data access goes through `db/store.js` — route handlers never touch the `users` array directly.
-- `server.js` exports the Express `app` and only calls `app.listen` when run directly (`require.main === module`), so tests import `app` without opening a real port.
-- ESLint's `no-unused-vars` ignores unused `req`/`res`/`next`/`_` parameters (common in Express handlers); other unused variables still warn.
+- Add a new resource as an `express.Router()` file in `routes/`, mounted in `server.js` (e.g. `app.use("/users", usersRoutes)`) — not as inline routes added directly to `server.js`.
+- Read and write data through `db/store.js`'s exported functions, not by importing or mutating the `users` array directly.
+- Guard `app.listen` behind `require.main === module`, not called unconditionally at module load, so `tests/` can `require("../server")` without binding a real port.
+- Leave unused `req`/`res`/`next`/`_` parameters as-is, not renamed or removed to satisfy lint — ESLint already exempts those names; only rename or remove other unused variables.
 
 ## Architecture
 
